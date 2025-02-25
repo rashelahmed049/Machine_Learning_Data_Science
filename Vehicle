@@ -1,0 +1,56 @@
+#best coder Petr Mitrichev and Gannady Korotkevich
+class vehicle:
+    def __init__(self,name,model,year):
+        self.n = name
+        self.mo = model
+        self.y = year
+        self.m = 0
+        
+    def start(self):
+        print(f"{self.n} {self.mo} is starting....")
+        
+    def drive(self,distance):
+        self.m+=distance
+        
+    def get_mileage(self):
+        print(self.m)
+        
+class electric(vehicle):
+    def __init__(self,name,model,year,battery_capacity):
+        self.battery_level = 100
+        super().__init__(name,model,year)
+        
+    def charge(self,amount):
+        self.battery_level = min(100,self.battery_level + amount)
+        print(f"{self.n}{self.mo} is charged to {self.battery_level}")
+    def drive(self,distance):
+        if (self.battery_level==0):
+            print(f"{self.n}{self.mo} battery is depleted! please charge..!")
+        energy_used = distance * 0.2
+        self.battery_level = max(0,self.battery_level - energy_used)
+        super().drive(distance)
+        print(f"{self.n}{self.mo} has battery = {self.battery_level}")
+class petrol(vehicle):
+    def __init__(self,fuel_capacity,name,model,year):
+        super().__init__(name,model,year)
+        self.fl = fuel_capacity
+        self.fc = fuel_capacity
+        
+    def refuel(self,litres):
+        self.fl = min(self.fc, self.fl + litres)
+        print(f"{self.n}{self.mo} is refilled to {self.fl}")
+        
+    def drive(self,distance):
+        super().drive(distance)
+        fuel_consumed = distance * 0.08
+        if self.fl < fuel_consumed:
+            print("cannot go upto that distance, please refill.!")
+        self.fl -= fuel_consumed
+class semi_automatice(vehicle):
+        
+        
+v1 = electric('audi','q100','2020',100)
+v1.start()
+v1.charge(90)
+v1.drive(900)
+v1.charge(70)
